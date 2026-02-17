@@ -1,0 +1,153 @@
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+#project-body {
+    width:100%;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+
+    background-color: white;
+}
+
+nav {
+    width: 100%;
+    height: 80px;
+
+    padding: 20px;
+
+    border-bottom: 1px solid black;
+
+    background-color: white;
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
+}
+
+.top-bar-img {
+    height: 50px;
+}
+
+main {
+    overflow: auto;
+
+    flex: 1;
+}
+
+footer {
+    width: 100%;
+    height: 100px;
+    
+    padding: 20px 0;
+    margin-top: 20px;
+
+    background-color: #1b1b1b;
+    color: #fff;
+
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    opacity: 0.8;
+}
+
+.main-content input[type="radio"] {
+    display: none;
+}
+
+.tabs {
+  display: flex;
+  border-bottom: 2px solid #ddd;
+  margin-bottom: 20px;
+}
+
+.tab-button {
+  padding: 15px 25px;
+  cursor: pointer;
+  border: none;
+  background: none;
+  font-weight: 500;
+}
+
+.tab-button.active {
+  border-bottom: 3px solid #007bff;
+  color: #007bff;
+}
+
+.tab-panel {
+  display: none;
+}
+
+.tab-panel.active {
+  display: block
+}
+
+/* Dashboards */
+
+.card {
+    flex: 0 0 500px;
+    height: 200px;
+
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+
+    padding: 20px;
+
+    text-decoration: none;
+    color: black;
+
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+/* Task */
+
+.tasks-container {
+  display: flex;
+  flex-direction: column;
+  border-top: 1px solid #ddd;
+}
+
+.task {
+  display: flex;
+  align-items: center;
+  padding: 12px 0;
+  border-bottom: 1px solid #ddd;
+  gap: 15px;
+}
+
+.task-title {
+  font-weight: 500;
+  flex-grow: 1;
+}
+
+.task-status {
+  width: 10px;
+  height: 24px;
+  border-radius: 4px;
+  flex-shrink: 0;
+}
+
+/* Status de task */
+.task-status.todo {
+  background-color: #ff6b6b;
+}
+
+.task-status.in-progress {
+  background-color: #ffa502;
+}
+
+.task-status.done {
+  background-color: #2ed573;
+}

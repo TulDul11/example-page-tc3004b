@@ -4,7 +4,6 @@
     box-sizing: border-box;
 }
 
-/* Home */
 #home-body {
     width:100%;
     height:100%;
@@ -14,7 +13,7 @@
     display: block;
 }
 
-.home-top-bar {
+nav {
     width: 100%;
     height: 80px;
 
@@ -27,10 +26,18 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+
+    position: sticky;
+    top: 0;
+    z-index: 1000;
 }
 
 .top-bar-img {
     height: 50px;
+}
+
+main {
+    overflow: auto;
 }
 
 .home-projects {
@@ -71,4 +78,78 @@
 .card-titles {
     font-family: 'Franklin Gothic Medium', 'Arial Narrow', Arial, sans-serif;
     font-size: 30px;
+
+    margin-bottom: 20px;
+}
+
+.card-container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px; 
+}
+
+.card {
+    flex: 0 0 500px;
+    height: 200px;
+
+    background: linear-gradient(145deg, #ffffff, #f0f0f0);
+    border: 3px solid black;
+
+    border-radius: 10px;
+    padding: 20px;
+
+    text-decoration: none;
+    color: black;
+
+    display: block;
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+}
+
+.card-inside {
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    gap: 10px;
+}
+
+.card-inside-title {
+    font-size: 1.2rem;
+    font-weight: 600;
+}
+
+.card-inside-description {
+    font-size: 0.9rem;
+    color: #555;
+    flex-grow: 1;
+}
+
+.card-inside-progress {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: #007bff;
+}
+
+footer {
+    width: 100%;
+    height: 100px;
+    
+    padding: 20px 0;
+    margin-top: 20px;
+
+    background-color: #1b1b1b;
+    color: #fff;
+
+    text-align: center;
+}
+
+.footer-content {
+    max-width: 1000px;
+    margin: 0 auto;
+    font-size: 0.9rem;
+    opacity: 0.8;
 }
