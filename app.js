@@ -1,16 +1,12 @@
-var express = require("express");
+const express = require("express");
 const path = require('path');
-var app = express();
+const pagesRoutes = require("./routes/pages");
+
+const app = express();
 
 app.use(express.static(path.join(__dirname, 'public')));
 
-app.get("/", function (req, res) {
-  res.sendFile(path.join(__dirname, 'public/pages/index.html'));
-});
-
-app.get("/home", function (req, res) {
-  res.sendFile(path.join(__dirname, 'public/pages/home.html'));
-});
+app.use("/", pagesRoutes);
 
 app.listen(8000, function () {
   console.log("Aplicación ejemplo, escuchando el puerto 8000!");

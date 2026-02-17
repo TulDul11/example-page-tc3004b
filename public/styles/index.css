@@ -4,7 +4,7 @@
     box-sizing: border-box;
 }
 
-#log-in-body {
+#index-body {
     background-image: url("../images/log_in_background.avif");
     background-repeat: no-repeat;
     background-size: cover;
@@ -12,11 +12,16 @@
     width: 100vw;
     height: 100vh;
 
+    overflow: hidden;
+}
+
+main {
+    width: 100%;
+    height: 100%;
+
     display: flex;
     justify-content: center;
     align-items: center;
-
-    overflow: hidden;
 }
 
 .title-container {
@@ -26,65 +31,96 @@
 }
 
 .logo-img {
-    width:350px;
-    height:auto;
+    width: 21.875rem;
+    height: auto;
 
-    margin-top: 100px;
-    margin-bottom: 30px;
+    margin-top: 6.25rem;
+    margin-bottom: 1.875rem;
 }
 
-/* Log-In */
-#log-in-container {
-    width: 25%;
-    height: 55%;
-
-    margin-top: 50px;
-    padding: 15px;
-
-    background-color: rgba(222, 222, 222, 0.95);
-    border-radius: 20px;
-
-    display: block;
-}
-
-.log-in-text-input-container {
+.log-in-text-input-container,
+.register-text-input-container {
     width: 100%;
-    height: 50px;
+    height: 3.125rem;
 
-    margin-top: 10px;
+    margin-top: 0.625rem;
 
     display: flex;
     justify-content: center;
     align-items: center;
 }
 
-.log-in-text-input {
-    width: 350px;
-    height: 50px;
+.input-wrapper {
+    position: relative;
+    width: 85%;
+    margin: 0 auto;
+}
 
-    padding: 15px;
+.log-in-text-input,
+.register-text-input {
+    width: 100%;
+    height: 3.125rem;
 
-    font-size: 14px;
+    padding: 0.9375rem 2.5rem 0.9375rem 0.9375rem;
+
+    font-size: 0.875rem;
 
     border: none;
-    border-radius: 50px;
-    border-color: white;
+    border-radius: 3.125rem;
 
     background-color: whitesmoke;
     outline: 2px solid transparent;
+
+    position: relative;
 }
 
-.log-in-text-input:focus {
+.log-in-text-input:focus,
+.register-text-input:focus {
     outline-color: rgba(227, 25, 55, 1.0);
     box-shadow: 0 0 0 0;
+}
+
+.password-eye-icon {
+    position: absolute;
+    right: calc(7.5% + 0.5rem);
+    top: 50%;
+    transform: translateY(-50%);
+
+    width: 2.1875rem;
+    height: 2.1875rem;
+    
+    background: none;
+    border: none;
+    border-radius: 50%;
+    cursor: pointer;
+
+    font-size: 1.2rem;
+}
+
+.password-eye-icon:hover {
+    background-color: lightgray;
+}
+
+/* Log-In */
+#log-in-container {
+    width: 25%;
+    height: 33.75rem;
+
+    margin-top: 3.125rem;
+    padding: 0.9375rem;
+
+    background-color: rgba(222, 222, 222, 0.95);
+    border-radius: 1.25rem;
+
+    display: block;
 }
 
 .log-in-button-container {
     width: 100%;
     height: fit-content;
 
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 1.875rem;
+    margin-bottom: 0.625rem;
 
     display: flex;
     justify-content: center;
@@ -92,11 +128,11 @@
 }
 
 #log-in-button {
-    width: 200px;
-    height: 50px;
+    width: 12.5rem;
+    height: 3.125rem;
 
     border: none;
-    border-radius: 40px;
+    border-radius: 2.5rem;
 
     background-color: rgba(227, 25, 55, 1.0);
 
@@ -121,58 +157,27 @@
     color: rgb(0, 0, 182);
 }
 
+
 /* Register */
 #register-container {
     width: 25%;
-    height: 62%;
+    height: 38.75rem;
 
-    margin-top: 30px;
-    padding: 15px;
+    margin-top: 1.875rem;
+    padding: 0.9375rem;
 
     background-color: rgba(222, 222, 222, 0.95);
-    border-radius: 20px;
+    border-radius: 1.25rem;
 
     display: none;
-}
-
-.register-text-input-container {
-    width: 100%;
-    height: 50px;
-
-    margin-top: 10px;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-.register-text-input {
-    width: 350px;
-    height: 50px;
-
-    padding: 15px;
-
-    font-size: 14px;
-
-    border: none;
-    border-radius: 50px;
-    border-color: white;
-
-    background-color: whitesmoke;
-    outline: 2px solid transparent;
-}
-
-.register-text-input:focus {
-    outline-color: rgba(227, 25, 55, 1.0);
-    box-shadow: 0 0 0 0;
 }
 
 .register-button-container {
     width: 100%;
     height: fit-content;
 
-    margin-top: 30px;
-    margin-bottom: 10px;
+    margin-top: 1.875rem;
+    margin-bottom: 0.625rem;
 
     display: flex;
     justify-content: center;
@@ -180,11 +185,11 @@
 }
 
 #register-button {
-    width: 200px;
-    height: 50px;
+    width: 12.5rem;
+    height: 3.125rem;
 
     border: none;
-    border-radius: 40px;
+    border-radius: 2.5rem;
 
     background-color: rgba(227, 25, 55, 1.0);
 
