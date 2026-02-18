@@ -41,52 +41,76 @@ document.getElementById("eye-icon-3").addEventListener("click",() => {changePass
 const loginForm = document.getElementById("log-in-form");
 const loginError = document.getElementById("log-in-error")
 
-loginForm.addEventListener("submit", (event) => {
+loginForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const username = loginForm.username.value;
     const password = loginForm.password.value;
-
-    loginError.textContent = "";
-    loginError.style.visibility = "hidden";
 
     if (username.trim() === "" || password.trim() === "") {
         loginError.textContent = "Usuario o contraseña faltantes";
         loginError.style.visibility = "visible";
-    } else {
-        loginError.textContent = "";
-        loginError.style.visibility = "hidden";
 
-        sessionStorage.setItem("username", username);
+        return;
+    }
 
-        window.location.href = "/home";
-    }    
+    const response = await fetch("/login", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        console.log(data.error)
+        loginError.textContent = data.error;
+        loginError.style.visibility = "visible";
+        return;
+    }
+
+    window.location.href = "/home"; 
 });
 
 // Funcionalidad de registro
 const registerForm = document.getElementById("register-form");
 const registerError = document.getElementById("register-error")
 
-registerForm.addEventListener("submit", (event) => {
+registerForm.addEventListener("submit", async (event) => {
     event.preventDefault();
+
     const username = registerForm.username.value;
     const password = registerForm.password.value;
     const passwordConfirm = registerForm.passwordconfirm.value;
 
-    registerError.textContent = "";
-    registerError.style.visibility = "hidden";
-
     if (username.trim() === "" || password.trim() === "" || passwordConfirm.trim() === "") {
         registerError.textContent = "Usuario o contraseña faltantes";
         registerError.style.visibility = "visible";
-    } else if (password.trim() != passwordConfirm.trim()) {
+
+        return;
+    } else if (password !== passwordConfirm) {
         registerError.textContent = "Contraseñas no coinciden";
         registerError.style.visibility = "visible";
-    } else {
-        registerError.textContent = "";
-        registerError.style.visibility = "hidden";
 
-        sessionStorage.setItem("username", username);
+        return;
+    }
 
-        window.location.href = "/home";
-    }    
+    const response = await fetch("/register", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json"
+        },
+        body: JSON.stringify({ username, password })
+    });
+
+    const data = await response.json();
+
+    if (!response.ok) {
+        registerError.textContent = data.error;
+        registerError.style.visibility = "visible";
+        return;
+    }
+    window.location.href = "/home"; 
 });
