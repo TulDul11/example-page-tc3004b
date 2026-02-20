@@ -25,7 +25,7 @@ function authenticate(req, res, next) {
 }
 
 router.get("/", (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/pages/index.html"));
+    res.render('pages/index');
 });
 
 router.post("/register", (req, res) => {
@@ -83,11 +83,11 @@ router.post("/logout", (req, res) => {
 });
 
 router.get("/home", authenticate, (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/pages/home.html"));
+    res.render('pages/home');
 });
 
 router.get("/project", authenticate, (req, res) => {
-  res.sendFile(path.join(__dirname, "../public/pages/project.html"));
+    res.render('pages/project');
 });
 
 module.exports = router;

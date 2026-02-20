@@ -10,6 +10,9 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use(express.json());
 app.use(cookieParser());
 
+app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
+
 app.use("/", pagesRoutes);
 
 app.listen(8000, function () {
