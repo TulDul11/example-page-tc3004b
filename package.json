@@ -21,6 +21,7 @@
   },
   "homepage": "https://github.com/TulDul11/example-page-tc3004b#readme",
   "dependencies": {
+    "axios": "^1.13.5",
     "cookie-parser": "^1.4.7",
     "ejs": "^4.0.1",
     "express": "^5.2.1",

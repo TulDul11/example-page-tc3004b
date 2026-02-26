@@ -5,234 +5,152 @@
 }
 
 #index-body {
-    background-image: url("../images/pokemon_background.avif");
-    background-repeat: no-repeat;
-    background-size: cover;
-
     width: 100vw;
     height: 100vh;
-
+    font-family: sans-serif;
     overflow: hidden;
 }
 
-main {
+
+#auth-layout {
+    display: flex;
     width: 100%;
     height: 100%;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-
-    overflow: auto;
 }
 
-#background-darken {
+
+#auth-image-side {
+    flex: 2.8;
+    background-image: url("../images/pokemon_background.avif");
+    background-size: cover;
+    background-position: center;
+    position: relative;
+}
+
+.image-overlay {
     width: 100%;
     height: 100%;
-    
-    top: 0;
+    background: rgba(0, 0, 0, 0.45);
 
-    background-color: rgba(0, 0, 0, 0.47);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    color: white;
+    text-align: center;
+}
+
+.logo-img-side {
+    width: 300px;
+    margin-bottom: 20px;
+}
+
+.welcome-text {
+    font-size: 2rem;
+    font-weight: 700;
+    letter-spacing: 1px;
+}
+
+
+#auth-form-side {
+    flex: 1;
+    background-color: #f4f4f4;
 
     display: flex;
     justify-content: center;
     align-items: center;
-
-    overflow: auto;
-
-    z-index: 1;
+    padding: 60px;
 }
 
-.title-container {
+
+#log-in-container,
+#register-container {
     width: 100%;
-    display: flex;
-    justify-content: center;
+    max-width: 420px;
+    padding: 0;
+    background: transparent;
+    border-radius: 0;
+    box-shadow: none;
 }
 
-.logo-img {
-    width: 21.875rem;
-    height: auto;
-
-    margin-top: 0.25rem;
-    margin-bottom: 0rem;
+#register-container {
+    display: none;
 }
 
-.log-in-text-input-container,
-.register-text-input-container {
-    width: 100%;
-    height: 3.125rem;
-
-    margin-top: 0.625rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
+.form-title {
+    margin-bottom: 25px;
+    font-size: 1.5rem;
+    font-weight: 700;
 }
+
+
+#log-in-error,
+#register-error {
+    color: red;
+    min-height: 1.2em;
+    margin-bottom: 15px;
+}
+
 
 .input-wrapper {
     position: relative;
-    width: 85%;
-    margin: 0 auto;
+    margin-bottom: 20px;
 }
 
 .log-in-text-input,
 .register-text-input {
     width: 100%;
-    height: 3.125rem;
-
-    padding: 0.9375rem 2.5rem 0.9375rem 0.9375rem;
-
-    font-size: 0.875rem;
-
-    border: none;
-    border-radius: 3.125rem;
-
-    background-color: whitesmoke;
-    outline: 2px solid transparent;
-
-    position: relative;
+    height: 45px;
+    padding: 10px 45px 10px 15px;
+    border-radius: 30px;
+    border: 1px solid #ccc;
+    font-size: 0.9rem;
+    outline: none;
 }
 
 .log-in-text-input:focus,
 .register-text-input:focus {
-    outline-color: rgb(43, 86, 149);
-    box-shadow: 0 0 0 0;
+    border-color: rgb(43, 86, 149);
 }
+
 
 .password-eye-icon {
     position: absolute;
-    right: calc(7.5% + 0.5rem);
+    right: 10px;
     top: 50%;
     transform: translateY(-50%);
-
-    width: 2.1875rem;
-    height: 2.1875rem;
-    
     background: none;
     border: none;
-    border-radius: 50%;
     cursor: pointer;
-
-    font-size: 1.2rem;
-}
-
-.password-eye-icon:hover {
-    background-color: lightgray;
-}
-
-/* Log-In */
-#log-in-container {
-    width: 25%;
-    height: 33.75rem;
-
-    margin-top: 3.125rem;
-    padding: 0.9375rem;
-
-    background-color: rgba(222, 222, 222, 0.95);
-    border-radius: 1.25rem;
-
-    display: block;
-
-    z-index: 10;
-}
-
-.log-in-button-container {
-    width: 100%;
-    height: fit-content;
-
-    margin-top: 1.875rem;
-    margin-bottom: 0.625rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
-#log-in-button {
-    width: 12.5rem;
-    height: 3.125rem;
-
-    border: none;
-    border-radius: 2.5rem;
-
-    background-color: rgb(43, 86, 149);
-
-    font-family: sans-serif;
-    color: rgb(255, 255, 255);
-    font-weight: 700;
-}
-
-#log-in-button:hover {
-    background-color: rgb(38, 75, 130);
-}
-
-#to-register-button {
-    background-color: transparent;
-    border: none;
-
-    text-decoration: underline;
-    color: blue;
-}
-
-#to-register-button:hover {
-    color: rgb(0, 0, 182);
+    font-size: 1.1rem;
 }
 
 
-/* Register */
-#register-container {
-    width: 25%;
-    height: 38.75rem;
-
-    margin-top: 1.875rem;
-    padding: 0.9375rem;
-
-    background-color: rgba(222, 222, 222, 0.95);
-    border-radius: 1.25rem;
-
-    display: none;
-
-    z-index: 10;
-}
-
-.register-button-container {
-    width: 100%;
-    height: fit-content;
-
-    margin-top: 1.875rem;
-    margin-bottom: 0.625rem;
-
-    display: flex;
-    justify-content: center;
-    align-items: center;
-}
-
+#log-in-button,
 #register-button {
-    width: 12.5rem;
-    height: 3.125rem;
-
+    width: 100%;
+    height: 45px;
+    border-radius: 30px;
     border: none;
-    border-radius: 2.5rem;
-
     background-color: rgb(43, 86, 149);
-
-    font-family: sans-serif;
     color: white;
     font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
 }
 
+#log-in-button:hover,
 #register-button:hover {
     background-color: rgb(38, 75, 130);
 }
 
-#to-login-button {
-    background-color: transparent;
+.switch-button {
+    margin-top: 20px;
+    background: none;
     border: none;
-
+    color: rgb(43, 86, 149);
+    cursor: pointer;
     text-decoration: underline;
-    color: blue;
-}
-
-#to-login-button:hover {
-    color: rgb(0, 0, 182);
+    font-size: 0.9rem;
 }

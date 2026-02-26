@@ -3,50 +3,18 @@
     <head>
         <meta charset="utf-8">
 
-        <title>Página de inicio</title>
+        <title>The Pokemon App - Home</title>
 
         <link href="/styles/project.css" rel="stylesheet">
+        <link href="/styles/global.css" rel="stylesheet">
         <link rel="icon" href="/images/logo.png">
 
         <script src="/scripts/project.js" type="module"></script>
     </head>
     <body id="project-body">
         <%- include('../partials/header') %>
-        <main class="main-content">
-            <div class="tabs">
-                <button class="tab-button active" data-tab="dashboard">Dashboard</button>
-                <button class="tab-button" data-tab="tasks">Tasks</button>
-            </div>
-            <div class="tab-content">
-                <div class="tab-panel" id="dashboard">
-                <div class="card-container">
-                    <div class="card">Dashboard 1</div>
-                    <div class="card">Dashboard 2</div>
-                    <div class="card">Dashboard 3</div>
-                </div>
-                </div>
+        <main>
 
-                <div class="tab-panel" id="tasks">
-                    <div class="tasks-container">
-                        <div class="task">
-                            <span class="task-status todo"></span>
-                            <span class="task-title">Task 1</span>
-                        </div>
-                        <div class="task">
-                            <span class="task-status in-progress"></span>
-                            <span class="task-title">Task 2</span>
-                        </div>
-                        <div class="task">
-                            <span class="task-status done"></span>
-                            <span class="task-title">Task 3</span>
-                        </div>
-                        <div class="task">
-                            <span class="task-status todo"></span>
-                            <span class="task-title">Task 4</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </main>
         <%- include('../partials/footer') %>
     </body>

@@ -6,6 +6,7 @@
         <title>The Pokemon App - Home</title>
 
         <link href="/styles/home.css" rel="stylesheet">
+        <link href="/styles/global.css" rel="stylesheet">
         <link rel="icon" href="/images/pokeball.png">
 
         <script src="/scripts/home.js" type="module"></script>
@@ -13,125 +14,25 @@
     <body id="home-body">
         <%- include('../partials/header') %>
         <main>
-            <div class="home-projects">
-                <div class="projects-title">
-                    <p>Pokemons</p>
+            <div class="search-section">
+                <div class="search-wrapper">
+                    <input 
+                        type="text" 
+                        id="pokemon-search" 
+                        placeholder="Search Pokémon..."
+                    >
+                    <button id="filter-button">
+                        Filters
+                    </button>
                 </div>
-                <div class="projects-overall">
-                    <div class="stat-card">
-                        <div style="display:block; width: 100%;">
-                            <p>Total pokemon</p>
-                            <p style="font-weight:600; font-size:30px;">13</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div style="display:block; width: 100%;">
-                            <p>Proyectos en progreso</p>
-                            <p style="font-weight:600; font-size:30px;">7</p>
-                        </div>
-                    </div>
-                    <div class="stat-card">
-                        <div style="display:block; width: 100%;">
-                            <p>Proyectos terminados</p>
-                            <p style="font-weight:600; font-size:30px;">6</p>
-                        </div>
-                    </div>
-                </div>
-                <div class="card-titles">
-                    <p>Lista de proyectos</p>
-                </div>
-                <div class="card-container">
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 1</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 2</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 3</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 4</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 5</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 6</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 7</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 8</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 9</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 10</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 11</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 12</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
-                    <a class="card" href="/project">
-                        <div class="card-inside">
-                            <span class="card-inside-title">Proyecto 13</span>
-                            <span class="card-inside-description">Descripcion del proyecto</span>
-                            <span class="card-inside-progress">Progreso del proyecto</span>
-                        </div>
-                    </a>
+            </div>
+            <div class="stats-section">
+                <div id="primary-stat"></div>
+                <div id="stats-container" class="stats-grid"></div>
+            </div>
+            <div id="loading" class="loading-spinner" style="display:none;"></div>
+            <div class="card-container" id="pokemon-container">
+
             </div>
         </main>
         <%- include('../partials/footer') %>

@@ -1,19 +1,18 @@
-<!DOCTYPE html>
-<html>
-    <head>
-        <meta charset="utf-8">
+<header class="app-header">
+    <nav class="navbar">
+        <div class="nav-left">
+            <img class="top-bar-img" src="/images/pokemon_logo.png" alt="Pokemon Logo">
+            <span class="app-title">The Pokémon App</span>
+        </div>
 
-        <link href="/styles/header.css" rel="stylesheet">
-    </head>
-    <body>
-        <header>
-            <nav>
-                <img class="top-bar-img" src="/images/pokemon_logo.png">
-                <div style="display: flex; gap: 15px; align-items: center;">
-                    <a style="margin: 0; cursor: pointer;" href="https://pokeapi.co/">Soporte</a>
-                    <p id="logout-btn" style="margin: 0; cursor: pointer;">Cerrar sesión</p>
-                </div>
-            </nav>
-        </header>
-    </body>
-</html>
+        <div class="nav-right">
+            <a class="nav-link" href="https://pokeapi.co/" target="_blank">
+                Support
+            </a>
+
+            <button id="logout-btn" class="logout-btn">
+                Logout
+            </button>
+        </div>
+    </nav>
+</header>
