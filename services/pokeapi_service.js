@@ -1,57 +1,69 @@
 const axios = require("axios");
 const path = require("path");
-const fs = require("fs");
 
 const BASE = "https://pokeapi.co/api/v2";
 
-const CACHE_PATH = path.join(__dirname, "../cache/all_pokemon.json");
-
-async function fetchAndCacheAllPokemon() {
-    console.log("Fetching all Pokémon from API...");
-
+async function getAllPokemon(limit = 36, offset = 0) {
     try {
-        const response = await axios.get(`${BASE}/pokemon?limit=2000`);
-        const allBasic = response.data.results;
+        const response = await axios.get(
+            `${BASE}/pokemon?limit=${limit}&offset=${offset}`
+        );
+
+        const totalCount = response.data.count;
+        const basicList = response.data.results;
 
         const detailed = await Promise.all(
-            allBasic.map(async (p) => {
+            basicList.map(async (p) => {
                 const detail = await axios.get(p.url);
+
                 return {
+                    id: detail.data.id,
                     name: detail.data.name,
-                    image: detail.data.sprites.other["official-artwork"].front_default 
-                           || detail.data.sprites.front_default,
+                    image:
+                        detail.data.sprites.other["official-artwork"]
+                            .front_default ||
+                        detail.data.sprites.front_default,
                     types: detail.data.types.map(t => t.type.name)
                 };
             })
         );
 
-        fs.writeFileSync(CACHE_PATH, JSON.stringify(detailed, null, 2), "utf-8");
-        console.log("All Pokémon cached locally.");
-        return detailed;
+        return {
+            total: totalCount,
+            data: detailed
+        };
 
     } catch (err) {
-        console.error("Error fetching from PokeAPI:", err.message);
-        throw new Error("Failed to fetch Pokémon from API");
+        console.error("Error fetching Pokémon:", err.message);
+        throw new Error("Failed to fetch Pokémon");
     }
 }
 
-async function getAllPokemon(forceRefresh = false) {
+async function getPokemonStats() {
     try {
-        if (!forceRefresh && fs.existsSync(CACHE_PATH)) {
-            const data = fs.readFileSync(CACHE_PATH, "utf-8");
-            const parsed = JSON.parse(data);
-            if (Array.isArray(parsed) && parsed.length > 0) {
-                console.log("Loaded Pokémon from cache.");
-                return parsed;
-            }
-            console.log("Cache empty or invalid. Rebuilding...");
-        }
+        const typesResponse = await axios.get(`${BASE}/type`);
+        const types = typesResponse.data.results;
 
-        return await fetchAndCacheAllPokemon();
+        const typeCounts = {};
+
+        await Promise.all(
+            types.map(async (t) => {
+                const typeDetail = await axios.get(t.url);
+                typeCounts[t.name] = typeDetail.data.pokemon.length;
+            })
+        );
+
+        const pokemonResponse = await axios.get(`${BASE}/pokemon?limit=1`);
+        const total = pokemonResponse.data.count;
+
+        return {
+            total,
+            typeCounts
+        };
 
     } catch (err) {
-        console.error("Failed to load cache:", err.message);
-        return await fetchAndCacheAllPokemon();
+        console.error("Failed to fetch stats:", err.message);
+        throw new Error("Failed to fetch stats");
     }
 }
 
@@ -62,5 +74,6 @@ async function getPokemonDetail(name) {
 
 module.exports = {
     getAllPokemon,
+    getPokemonStats,
     getPokemonDetail,
 };

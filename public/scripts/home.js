@@ -49,33 +49,50 @@ function createStatCard(title, value, type = null) {
 const loading = document.getElementById("loading");
 const container = document.getElementById("pokemon-container");
 
-async function loadAllPokemon() {
+async function loadStats() {
+    try {
+        const response = await fetch("/api/pokemon/stats");
+        const stats = await response.json();
+
+        if (!stats || !stats.typeCounts) {
+            console.error("Invalid stats response:", stats);
+            return;
+        }
+
+        document.getElementById("primary-stat").innerHTML = "";
+        document.getElementById("stats-container").innerHTML = "";
+
+        createPrimaryStatCard("Total Pokémon", stats.total);
+
+        ALL_TYPES.forEach(type => {
+            createStatCard(
+                `Total ${capitalize(type)}`,
+                stats.typeCounts[type] || 0,
+                type
+            );
+        });
+
+    } catch (err) {
+        console.error("Failed to load stats:", err);
+    }
+}
+async function loadPokemonPage(limit = 36, offset = 0) {
     try {
         loading.style.display = "block";
         container.innerHTML = "";
 
-        const response = await fetch("/api/pokemon/all");
-        const pokemonList = await response.json();
+        const response = await fetch(
+            `/api/pokemon?limit=${limit}&offset=${offset}`
+        );
 
-        if (!Array.isArray(pokemonList)) {
-            console.error("Expected an array of Pokémon, got:", pokemonList);
+        const result = await response.json();
+
+        if (!result || !Array.isArray(result.data)) {
+            console.error("Invalid pokemon response:", result);
             return;
         }
 
-        const typeCounts = {};
-        ALL_TYPES.forEach(type => typeCounts[type] = 0);
-        pokemonList.forEach(pokemon => {
-            pokemon.types.forEach(t => {
-                if (typeCounts[t] !== undefined) typeCounts[t]++;
-            });
-        });
-
-        createPrimaryStatCard("Total Pokémon", pokemonList.length);
-        ALL_TYPES.forEach(type => {
-            createStatCard(`Total ${capitalize(type)}`, typeCounts[type], type);
-        });
-
-        pokemonList.forEach(pokemon => {
+        result.data.forEach(pokemon => {
             const card = document.createElement("a");
             card.className = "card";
             card.href = `/project?name=${pokemon.name}`;
@@ -83,7 +100,9 @@ async function loadAllPokemon() {
             card.innerHTML = `
                 <div class="card-inside">
                     <img class="pokemon-image" src="${pokemon.image}" alt="${pokemon.name}">
-                    <span class="card-inside-title">${pokemon.name.toUpperCase()}</span>
+                    <span class="card-inside-title">
+                        ${pokemon.id}. ${pokemon.name.toUpperCase()}
+                    </span>
                     <div class="pokemon-types">
                         ${pokemon.types.map(type => 
                             `<span class="pokemon-type type-${type}">${type}</span>`
@@ -96,14 +115,11 @@ async function loadAllPokemon() {
         });
 
     } catch (err) {
-        console.error("Failed to load all Pokémon:", err);
+        console.error("Failed to load Pokémon:", err);
     } finally {
         loading.style.display = "none";
     }
 }
-
-loadAllPokemon();
-
 
 const searchInput = document.getElementById("pokemon-search");
 
@@ -120,3 +136,10 @@ searchInput.addEventListener("input", (e) => {
         card.style.display = name.includes(query) ? "flex" : "none";
     });
 });
+
+async function initPage() {
+    await loadStats();
+    await loadPokemonPage(36, 0);
+}
+
+initPage();
