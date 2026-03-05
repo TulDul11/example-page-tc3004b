@@ -227,11 +227,13 @@ searchInput.addEventListener("input", async (e) => {
 });
 document.getElementById("next-page").addEventListener("click", () => {
     if (currentOffset + limit < totalCount) {
+        container.innerHTML = "";
         loadPokemonPage(limit, currentOffset + limit, currentSearch, appliedTypes);
     }
 });
 document.getElementById("prev-page").addEventListener("click", () => {
     if (currentOffset > 0) {
+        container.innerHTML = "";
         loadPokemonPage(limit, currentOffset - limit, currentSearch, appliedTypes);
     }
 });
