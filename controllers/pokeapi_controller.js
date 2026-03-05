@@ -16,9 +16,17 @@ async function getList(req, res) {
         const limit = parseInt(req.query.limit) || 36;
         const offset = parseInt(req.query.offset) || 0;
         const search = req.query.search || "";
-        const type = req.query.type || "";
+        let types = [];
 
-        const result = await pokeService.getAllPokemon(limit, offset, search, type);
+        if (req.query.type) {
+            if (Array.isArray(req.query.type)) {
+                types = req.query.type;
+            } else {
+                types = req.query.type.split(",");
+            }
+        }
+
+        const result = await pokeService.getAllPokemon(limit, offset, search, types);
 
         res.json(result);
 
@@ -30,9 +38,17 @@ async function getList(req, res) {
 async function getStats(req, res) {
     try {
         const search = req.query.search || "";
-        const type = req.query.type || "";
+        let types = [];
 
-        const stats = await pokeService.getPokemonStats(search, type);
+        if (req.query.type) {
+            if (Array.isArray(req.query.type)) {
+                types = req.query.type;
+            } else {
+                types = req.query.type.split(",");
+            }
+        }
+
+        const stats = await pokeService.getPokemonStats(search, types);
 
         res.json(stats);
 

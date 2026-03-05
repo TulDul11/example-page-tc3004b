@@ -66,29 +66,82 @@ main {
 }
 
 .filter-type-btn {
-    padding: 6px 8px;
+    padding: 8px 16px;
     border-radius: 20px;
     border: none;
-    font-size: 12px;
-    font-weight: 600;
     cursor: pointer;
-    transition: 0.2s ease;
-    text-transform: capitalize;
+    font-weight: 600;
+    transition: all 0.2s ease;
+
+    opacity: 0.5;
+    transform: scale(1);
+    box-shadow: none;
+}
+
+.filter-type-btn.active {
+    opacity: 1;
+    transform: scale(1.05);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    border: 2px solid white;
+    color: black;
 }
 
 .filter-type-btn:hover {
     transform: translateY(-2px);
 }
 
-.filter-clear-btn {
-    grid-column: span 3;
+.filter-actions{
+    display: flex;
+    flex-direction: column;
+    gap:10px;
+    margin-top:10px;
+}
+
+.filter-btn{
+    border:none;
+    padding:8px 14px;
+    border-radius:10px;
+    font-weight:600;
+    cursor:pointer;
+    transition:all 0.2s ease;
+    width: 100%;
+}
+
+.confirm-btn{
+    background:#4CAF50;
+    color:white;
+}
+
+.confirm-btn:hover{
+    background:#43a047;
+    transform:translateY(-1px);
+}
+
+
+.clear-btn{
+    background:#e53935;
+    color:white;
+}
+
+.clear-btn:hover{
+    background:#d32f2f;
+    transform:translateY(-1px);
+}
+
+#active-filters {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
     margin-top: 10px;
-    padding: 8px;
-    border-radius: 8px;
-    border: none;
-    background: #444;
-    color: white;
-    cursor: pointer;
+}
+
+#active-filters .type-badge {
+    padding: 6px 14px;
+    border-radius: 16px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+    border: 2px solid white;
 }
 
 .loading-spinner {

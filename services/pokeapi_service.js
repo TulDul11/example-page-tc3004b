@@ -10,7 +10,7 @@ const ALL_TYPES = [
 ];
 
 
-async function getAllPokemon(limit = 36, offset = 0, search = "", type = "") {
+async function getAllPokemon(limit = 36, offset = 0, search = "", types = []) {
     try {
         const response = await axios.get(`${BASE}/pokemon?limit=2000`);
         let allBasic = response.data.results;
@@ -34,14 +34,18 @@ async function getAllPokemon(limit = 36, offset = 0, search = "", type = "") {
             }
         }
 
-        if (type) {
+        if (types && types.length > 0) {
             allBasic = await Promise.all(
                 allBasic.map(async (p) => {
                     const detail = await axios.get(p.url);
-                    const hasType = detail.data.types.some(
-                        t => t.type.name === type
+
+                    const pokemonTypes = detail.data.types.map(t => t.type.name);
+
+                    const hasAtLeastOne = types.some(selected =>
+                        pokemonTypes.includes(selected)
                     );
-                    return hasType ? p : null;
+
+                    return hasAtLeastOne ? p : null;
                 })
             );
 
@@ -78,7 +82,7 @@ async function getAllPokemon(limit = 36, offset = 0, search = "", type = "") {
     }
 };
 
-async function getPokemonStats(search = "", type = "") {
+async function getPokemonStats(search = "", types = []) {
     try {
         const response = await axios.get(`${BASE}/pokemon?limit=2000`);
         let allBasic = response.data.results;
@@ -102,19 +106,23 @@ async function getPokemonStats(search = "", type = "") {
             }
         };
 
-        if (type) {
+        if (types && types.length > 0) {
             allBasic = await Promise.all(
                 allBasic.map(async (p) => {
                     const detail = await axios.get(p.url);
-                    const hasType = detail.data.types.some(
-                        t => t.type.name === type
+
+                    const pokemonTypes = detail.data.types.map(t => t.type.name);
+
+                    const hasAtLeastOne = types.some(selected =>
+                        pokemonTypes.includes(selected)
                     );
-                    return hasType ? p : null;
+
+                    return hasAtLeastOne ? p : null;
                 })
             );
 
             allBasic = allBasic.filter(Boolean);
-        };
+        }
 
         const total = allBasic.length;
 

@@ -3,7 +3,8 @@ const limit = 54;
 let totalCount = 0;
 let isLoading = false;
 let currentSearch = "";
-let currentTypeFilter = "";
+let selectedTypes = new Set();
+let appliedTypes = []; 
 
 const ALL_TYPES = [
     "normal","fire","water","electric","grass","ice",
@@ -67,44 +68,75 @@ function setPaginationDisabled(disabled) {
     document.getElementById("prev-page").disabled = disabled;
     document.getElementById("next-page").disabled = disabled;
 };
+function createFilterButton(type) {
+    const button = document.createElement("button");
+    button.className = `filter-type-btn type-${type}`;
+    button.textContent = capitalize(type);
+
+    button.addEventListener("click", () => {
+        if (selectedTypes.has(type)) {
+            selectedTypes.delete(type);
+            button.classList.remove("active");
+        } else {
+            selectedTypes.add(type);
+            button.classList.add("active");
+        }
+    });
+
+    return button;
+};
+function renderActiveFilters() {
+    const container = document.getElementById("active-filters");
+    container.innerHTML = "";
+
+    appliedTypes.forEach(type => {
+        const badge = document.createElement("span");
+        badge.className = `type-badge type-${type}`;
+        badge.textContent = capitalize(type);
+        container.appendChild(badge);
+    });
+};
 function renderTypeFilters() {
     const container = document.getElementById("filter-types");
     container.innerHTML = "";
 
     ALL_TYPES.forEach(type => {
-        const btn = document.createElement("button");
-        btn.className = `filter-type-btn type-${type}`;
-        btn.textContent = capitalize(type);
-
-        btn.addEventListener("click", () => {
-            currentTypeFilter = type;
-            currentOffset = 0;
-
-            loadPokemonPage(limit, 0, currentSearch, currentTypeFilter);
-        });
-
-        container.appendChild(btn);
+        const button = createFilterButton(type);
+        container.appendChild(button);
     });
+};
+function setupFilterActions() {
+    const confirmBtn = document.getElementById("confirm-filters");
+    const clearBtn = document.getElementById("clear-filters");
 
-    const clearBtn = document.createElement("button");
-    clearBtn.textContent = "Clear Filter";
-    clearBtn.className = "filter-clear-btn";
-
-    clearBtn.addEventListener("click", () => {
-        currentTypeFilter = "";
+    confirmBtn.addEventListener("click", async () => {
+        appliedTypes = Array.from(selectedTypes);
         currentOffset = 0;
 
-        loadPokemonPage(limit, 0, currentSearch, "");
+        renderActiveFilters();
+
+        pageReload();
     });
 
-    container.appendChild(clearBtn);
+    clearBtn.addEventListener("click", () => {
+        selectedTypes.clear();
+        appliedTypes = [];
+
+        document.querySelectorAll(".filter-type-btn")
+            .forEach(btn => btn.classList.remove("active"));
+    });
 };
 
-async function loadStats(currentSearch = "", currentTypeFilter = "") {
+async function loadStats(currentSearch = "", currentTypeFilter = []) {  
     try {
-        const response = await fetch(
-            `/api/pokemon/stats?search=${encodeURIComponent(currentSearch)}&type=${encodeURIComponent(currentTypeFilter)}`
-        );
+        const params = new URLSearchParams();
+        params.append("search", currentSearch);
+
+        currentTypeFilter.forEach(type => {
+            params.append("type", type);
+        });
+
+        const response = await fetch(`/api/pokemon/stats?${params.toString()}`);
 
         const stats = await response.json();
 
@@ -112,9 +144,6 @@ async function loadStats(currentSearch = "", currentTypeFilter = "") {
             console.error("Invalid stats response:", stats);
             return;
         }
-
-        document.getElementById("primary-stat").innerHTML = "";
-        document.getElementById("stats-container").innerHTML = "";
 
         createPrimaryStatCard("Total Pokémon", stats.total);
 
@@ -134,20 +163,19 @@ async function loadPokemonPage(
     limit = 54,
     offset = 0,
     currentSearch = "",
-    currentTypeFilter = ""
+    currentTypeFilter = [],
 ) {
-    if (isLoading) return;
     try {
-        isLoading = true;
-        setPaginationDisabled(true);
-        loading.style.display = "block";
-        container.innerHTML = "";
+        const params = new URLSearchParams();
+        params.append("limit", limit);
+        params.append("offset", offset);
+        params.append("search", currentSearch);
 
-        await loadStats(currentSearch, currentTypeFilter);
+        currentTypeFilter.forEach(type => {
+            params.append("type", type);
+        });
 
-        const response = await fetch(
-            `/api/pokemon?limit=${limit}&offset=${offset}&search=${currentSearch}&type=${currentTypeFilter}`
-        );
+        const response = await fetch(`/api/pokemon?${params.toString()}`);
         const result = await response.json();
 
         if (!result || !Array.isArray(result.data)) {
@@ -184,10 +212,6 @@ async function loadPokemonPage(
 
     } catch (err) {
         console.error("Failed to load Pokémon:", err);
-    } finally {
-        loading.style.display = "none";
-        isLoading = false;
-        updatePaginationUI();
     }
 };
 
@@ -199,16 +223,16 @@ searchInput.addEventListener("input", async (e) => {
     currentSearch = e.target.value.trim();
     currentOffset = 0;
 
-    loadPokemonPage(limit, 0, currentSearch, currentTypeFilter);
+    pageReload();
 });
 document.getElementById("next-page").addEventListener("click", () => {
     if (currentOffset + limit < totalCount) {
-        loadPokemonPage(limit, currentOffset + limit, currentSearch, currentTypeFilter);
+        loadPokemonPage(limit, currentOffset + limit, currentSearch, appliedTypes);
     }
 });
 document.getElementById("prev-page").addEventListener("click", () => {
     if (currentOffset > 0) {
-        loadPokemonPage(limit, currentOffset - limit, currentSearch, currentTypeFilter);
+        loadPokemonPage(limit, currentOffset - limit, currentSearch, appliedTypes);
     }
 });
 filterButton.addEventListener("click", () => {
@@ -216,9 +240,38 @@ filterButton.addEventListener("click", () => {
         filterPanel.style.display === "none" ? "block" : "none";
 });
 
+async function pageReload() {
+    if (isLoading) return;
+
+    isLoading = true;
+    setPaginationDisabled(true);
+    loading.style.display = "block";
+
+    document.getElementById("primary-stat").innerHTML = "";
+    document.getElementById("stats-container").innerHTML = "";
+    container.innerHTML = "";
+
+    await loadStats(currentSearch, appliedTypes);
+    await loadPokemonPage(limit, 0, currentSearch, appliedTypes);
+
+    loading.style.display = "none";
+    isLoading = false;
+    updatePaginationUI();
+};
 async function initPage() {
-    await loadPokemonPage(limit, 0);
     renderTypeFilters();
+    setupFilterActions();
+
+    isLoading = true;
+    setPaginationDisabled(true);
+    loading.style.display = "block";
+    
+    await loadPokemonPage(limit, 0);
+    await loadStats(currentSearch, appliedTypes);
+
+    loading.style.display = "none";
+    isLoading = false;
+    updatePaginationUI();
 };
 
 initPage();
