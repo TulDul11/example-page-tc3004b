@@ -1,0 +1,137 @@
+.detail-page {
+    padding: 40px;
+    text-align: center;
+}
+
+.detail-layout {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 40px;
+    padding: 40px 60px;
+    align-items: start;
+}
+
+.detail-left {
+    text-align: center;
+}
+
+.detail-image {
+    width: 100%;
+    max-width: 380px;
+    object-fit: contain;
+    margin-bottom: 20px;
+}
+
+.detail-title {
+    font-size: 2rem;
+    margin-bottom: 8px;
+}
+
+.detail-right {
+    flex: 2;
+}
+
+.detail-right h2 {
+    margin-bottom: 15px;
+    font-size: 1.4rem;
+}
+
+
+
+.section-title {
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.stats-chart-wrapper {
+    display: grid;
+    grid-template-columns: 1fr 320px;
+    gap: 40px;
+    align-items: center;
+}
+
+.stats-section ul {
+    list-style: none;
+    padding: 20px;
+    background: white;
+    border-radius: 14px;
+    box-shadow: 0 8px 20px rgba(0,0,0,0.05);
+}
+
+.stats-section li {
+    display: flex;
+    justify-content: space-between;
+    padding: 8px 0;
+    border-bottom: 1px solid #eee;
+}
+
+.moves-section {
+    margin-top: 50px;
+}
+
+.moves-container {
+    width: 100%;
+    max-height: 450px;
+    overflow-y: auto;
+    border-radius: 16px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.06);
+}
+
+.moves-table {
+    width: 100%;
+    min-width: 100%;
+    border-collapse: collapse;
+    background: white;
+}
+
+.moves-table th,
+.moves-table td {
+    padding: 14px;
+    text-align: left;
+}
+
+.moves-table th {
+    background: #f5f6fa;
+    font-weight: 600;
+}
+
+.moves-table tr {
+    border-bottom: 1px solid #eee;
+}
+
+.moves-table tr:hover {
+    background: #f9fbff;
+}
+.types {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+.type-badge {
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: white;
+}
+
+.type-normal { background-color: #A8A77A; }
+.type-fire { background-color: #EE8130; }
+.type-water { background-color: #6390F0; }
+.type-electric { background-color: #F7D02C; color: #222; }
+.type-grass { background-color: #7AC74C; }
+.type-ice { background-color: #96D9D6; color: #222; }
+.type-fighting { background-color: #C22E28; }
+.type-poison { background-color: #A33EA1; }
+.type-ground { background-color: #E2BF65; color: #222; }
+.type-flying { background-color: #A98FF3; }
+.type-psychic { background-color: #F95587; }
+.type-bug { background-color: #A6B91A; }
+.type-rock { background-color: #B6A136; }
+.type-ghost { background-color: #735797; }
+.type-dragon { background-color: #6F35FC; }
+.type-dark { background-color: #705746; }
+.type-steel { background-color: #B7B7CE; color: #222; }
+.type-fairy { background-color: #D685AD; }

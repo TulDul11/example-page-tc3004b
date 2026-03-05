@@ -3,7 +3,7 @@
     <head>
         <meta charset="utf-8">
 
-        <title>The Pokemon App - Home</title>
+        <title> </title>
 
         <link href="/styles/home.css" rel="stylesheet">
         <link href="/styles/global.css" rel="stylesheet">
@@ -25,6 +25,9 @@
                         Filters
                     </button>
                 </div>
+                <div class="filter-panel" id="filter-panel" style="display:none;">
+                    <div class="filter-types" id="filter-types"></div>
+                </div>
             </div>
             <div class="stats-section">
                 <div id="primary-stat"></div>
@@ -33,6 +36,13 @@
             <div id="loading" class="loading-spinner" style="display:none;"></div>
             <div class="card-container" id="pokemon-container">
 
+            </div>
+            <div id="pagination" class="pagination-container">
+                <span id="pagination-info"></span>
+                <div class="pagination-buttons">
+                    <button id="prev-page">Previous</button>
+                    <button id="next-page">Next</button>
+                </div>
             </div>
         </main>
         <%- include('../partials/footer') %>
