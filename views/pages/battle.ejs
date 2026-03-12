@@ -1,0 +1,80 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8">
+
+        <title>The Pokemon App - Battle</title>
+
+        <link href="/styles/battle.css" rel="stylesheet">
+        <link href="/styles/global.css" rel="stylesheet">
+        <link rel="icon" href="/images/pokeball.png">
+
+        <script src="/scripts/battle.js" type="module"></script>
+        <script src="/scripts/global.js" type="module"></script>
+    </head>
+    <body id="home-body">
+        <%- include('../partials/header') %>
+        <main class="battle-page">
+
+            <div class="battle-grid">
+
+                <section class="pokemon-side" id="player1">
+                    <h2>Pokemon 1</h2>
+
+                    <select id="pokemon-select-1"></select>
+
+                    <div class="pokemon-preview">
+                        <img id="pokemon-img-1">
+                        <p id="pokemon-name-1"></p>
+                    </div>
+                    <div class="hp-container hidden" id="hp-container-1">
+                        <div class="hp-bar">
+                            <div class="hp-fill" id="hp-fill-1"></div>
+                        </div>
+                        <span class="hp-text" id="hp-text-1"></span>
+                    </div>
+
+                    <button id="confirm-1">Confirm</button>
+                </section>
+
+
+                <div class="battle-center">
+
+                    <div class="battle-controls">
+
+                        <label for="max-turns">Max Turns</label>
+                        <input id="max-turns" type="number" value="10" min="1" max="100">
+
+                        <button id="fight-btn" disabled>Fight</button>
+
+                    </div>
+
+                </div>
+
+                <section class="pokemon-side" id="player2">
+                    <h2>Pokemon 2</h2>
+
+                    <select id="pokemon-select-2"></select>
+
+                    <div class="pokemon-preview">
+                        <img id="pokemon-img-2">
+                        <p id="pokemon-name-2"></p>
+                    </div>
+                    <div class="hp-container hidden" id="hp-container-2">
+                        <div class="hp-bar">
+                            <div class="hp-fill" id="hp-fill-2"></div>
+                        </div>
+                        <span class="hp-text" id="hp-text-2"></span>
+                    </div>
+
+                    <button id="confirm-2">Confirm</button>
+                </section>
+
+            </div>
+
+            <div id="battle-log"></div>
+
+        </main>
+        <%- include('../partials/footer') %>
+    </body>
+</html>

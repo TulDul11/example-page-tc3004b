@@ -9,3 +9,7 @@ exports.home = (req, res) => {
 exports.project = (req, res) => {
     res.render("pages/project");
 };
+
+exports.battle = (req, res) => {
+    res.render("pages/battle");
+};

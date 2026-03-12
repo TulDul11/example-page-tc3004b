@@ -2,10 +2,12 @@ const pokeService = require("../services/pokeapi_service.js");
 
 async function getAll(req, res) {
     try {
-        const limit = req.query.limit;
-        const offset = req.query.offset;
-        const pokemons = await pokeService.getAllPokemon(limit, offset);
-        res.json(pokemons);
+        const pokemons = await pokeService.getAllPokemon();
+
+        res.json({
+            total: pokemons.length,
+            data: pokemons
+        });
     } catch (err) {
         res.status(500).json({ error: "Failed to load all Pokémon" });
     }
@@ -26,7 +28,7 @@ async function getList(req, res) {
             }
         }
 
-        const result = await pokeService.getAllPokemon(limit, offset, search, types);
+        const result = await pokeService.getPokemon(limit, offset, search, types);
 
         res.json(result);
 

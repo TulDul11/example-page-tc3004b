@@ -9,8 +9,37 @@ const ALL_TYPES = [
     "dragon","dark","steel","fairy"
 ];
 
+async function getAllPokemon(){
+    try {
+        const listRes = await fetch(`${BASE}/pokemon?limit=2000`);
+        const listData = await listRes.json();
 
-async function getAllPokemon(limit = 36, offset = 0, search = "", types = []) {
+        const pokemonUrls = listData.results.map(p => p.url);
+
+        const pokemonPromises = pokemonUrls.map(async (url) => {
+
+            const res = await fetch(url);
+            const data = await res.json();
+
+            return {
+                id: data.id,
+                name: data.name,
+                image: data.sprites.other["official-artwork"].front_default,
+                types: data.types.map(t => t.type.name)
+            };
+
+        });
+
+        const pokemons = await Promise.all(pokemonPromises);
+
+        return pokemons;
+    } catch (err) {
+        console.error("Service error:", err.message);
+        throw new Error("Failed to fetch Pokémon");
+    }
+}
+
+async function getPokemon(limit = 36, offset = 0, search = "", types = []) {
     try {
         const response = await axios.get(`${BASE}/pokemon?limit=2000`);
         let allBasic = response.data.results;
@@ -198,6 +227,7 @@ async function getPokemonDetail(id) {
 
 module.exports = {
     getAllPokemon,
+    getPokemon,
     getPokemonStats,
     getPokemonDetail,
 };

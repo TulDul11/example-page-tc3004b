@@ -13,7 +13,6 @@ const ALL_TYPES = [
     "dragon","dark","steel","fairy"
 ];
 
-const logoutBtn = document.getElementById("logout-btn");
 const loading = document.getElementById("loading");
 const container = document.getElementById("pokemon-container");
 const searchInput = document.getElementById("pokemon-search");
@@ -215,10 +214,6 @@ async function loadPokemonPage(
     }
 };
 
-logoutBtn.addEventListener("click", async () => {
-    await fetch("/logout", { method: "POST" });
-    window.location.href = "/";
-});
 searchInput.addEventListener("input", async (e) => {
     currentSearch = e.target.value.trim();
     currentOffset = 0;

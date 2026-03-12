@@ -13,5 +13,6 @@ router.post("/logout", authController.logout);
 
 router.get("/home", authenticate, pageController.home);
 router.get("/project", authenticate, pageController.project);
+router.get("/battle", authenticate, pageController.battle);
 
 module.exports = router;

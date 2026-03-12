@@ -1,4 +1,3 @@
-const logoutBtn = document.getElementById("logout-btn");
 let statChartInstance = null;
 
 function getPokemonIdFromURL() {
@@ -185,11 +184,6 @@ async function loadPokemonDetail() {
         console.error("Failed to load Pokémon detail:", err);
     }
 };
-
-logoutBtn.addEventListener("click", async () => {
-    await fetch("/logout", { method: "POST" });
-    window.location.href = "/";
-});
 
 async function initPage() {
     await loadPokemonDetail();
