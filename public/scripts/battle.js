@@ -19,6 +19,9 @@ const hpFill1 = document.getElementById("hp-fill-1");
 const hpFill2 = document.getElementById("hp-fill-2");
 const hpText1 = document.getElementById("hp-text-1");
 const hpText2 = document.getElementById("hp-text-2");
+const battleResult = document.getElementById("battle-result");
+const winnerText = document.getElementById("winner-text");
+const winnerImage = document.getElementById("winner-image");
 
 function formatName(name){
     return name.toUpperCase();
@@ -84,8 +87,8 @@ function createBattlePokemon(base){
         spAttack: randomStat(),
         spDefense: randomStat(),
 
-        specialAttackCD: 0,
-        specialDefenseCD: 0,
+        specialAttackCD: 4,
+        specialDefenseCD: 3,
 
         defending: false,
         specialDefending: false
@@ -244,24 +247,35 @@ function decideWinner(p1,p2){
 
     if(p1.hp <= 0){
         log(`${formatName(p2.name)} WINS!`);
+        showWinner(p2);
         return;
     }
 
     if(p2.hp <= 0){
         log(`${formatName(p1.name)} WINS!`);
+        showWinner(p1);
         return;
     }
 
     if(p1.hp > p2.hp){
         log(formatName(p1.name) + " wins by remaining HP!");
+        showWinner(p1);
     }
     else if(p2.hp > p1.hp){
         log(formatName(p2.name) + " wins by remaining HP!");
+        showWinner(p2);
     }
     else{
         log("Battle ended in a draw!");
     }
 
+};
+function showWinner(pokemon){
+    battleResult.classList.remove("hidden");
+
+    winnerText.textContent = `${formatName(pokemon.name)} WINS THE BATTLE!`;
+
+    winnerImage.src = pokemon.image;
 };
 function updateHPBars(p1,p2){
     const p1Percent = Math.max(0,(p1.hp/100)*100);
@@ -328,10 +342,11 @@ fightBtn.addEventListener("click", () => {
 
     const maxTurns = Number(maxTurnsInput.value);
 
+    battleResult.classList.add("hidden");
+
     updateHPBars(p1,p2);
 
     simulateBattle(p1,p2,maxTurns);
-
 });
 
 loadPokemon();
